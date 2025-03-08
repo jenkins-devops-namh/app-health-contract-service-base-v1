@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment {
     SONAR_HOST_URL = 'http://sonarqube:9000'
-    SONAR_PROJECT_KEY = 'app-health-contract-service-v1'
+    SONAR_PROJECT_KEY = 'app-health-contract-service-base-v1'
   }
 
   tools {
@@ -14,7 +14,7 @@ pipeline {
     stage('Clone') {
       steps {
         timeout(time: 2, unit: 'MINUTES'){
-          git 'https://github.com/jenkins-devops-namh/app-health-contract-service-v1.git'
+          git 'https://github.com/jenkins-devops-namh/app-health-contract-service-base-v1.git'
         }
       }
     }
@@ -47,7 +47,7 @@ pipeline {
     stage('SonarQube Analysis') {
       steps {
         withSonarQubeEnv('sonarqube') {
-          sh 'mvn clean sonar:sonar -Dsonar.projectKey=app-health-contract-service-v1'
+          sh 'mvn clean sonar:sonar -Dsonar.projectKey=app-health-contract-service-base-v1'
 
         }
       }
