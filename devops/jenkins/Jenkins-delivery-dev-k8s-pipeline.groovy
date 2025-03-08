@@ -44,14 +44,22 @@ pipeline {
 //      }
 //    }
 
+//    stage('SonarQube Analysis') {
+//      steps {
+//        withSonarQubeEnv('sonarqube') {
+//          sh 'mvn clean sonar:sonar -Dsonar.projectKey=app-health-contract-service-base-v1'
+//
+//        }
+//      }
+//    }
     stage('SonarQube Analysis') {
       steps {
         withSonarQubeEnv('sonarqube') {
-          sh 'mvn clean sonar:sonar -Dsonar.projectKey=app-health-contract-service-base-v1'
-
+          sh 'mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar -Dsonar.projectKey=app-health-contract-service-base-v1'
         }
       }
     }
+
 
 
 //    stage('SonarQube Analysis') {
