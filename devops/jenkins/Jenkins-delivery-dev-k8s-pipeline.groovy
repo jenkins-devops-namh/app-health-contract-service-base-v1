@@ -33,6 +33,17 @@ pipeline {
         }
       }
     }
+
+    stage('SonarQube Analysis') {
+      steps {
+        withSonarQubeEnv('sonarqube') {
+          sh 'mvn clean install -DskipTests'  // Compila el código antes del análisis
+          sh 'mvn sonar:sonar -Dsonar.projectKey=app-health-contract-service-base-v1 -Dsonar.java.binaries=target/classes'
+        }
+      }
+    }
+
+
 //    stage('Sonar') {
 //      steps {
 //        timeout(time: 2, unit: 'MINUTES'){
@@ -52,14 +63,14 @@ pipeline {
 //        }
 //      }
 //    }
-    stage('SonarQube Analysis') {
-      steps {
-        withSonarQubeEnv('sonarqube') {
-          sh 'mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar -Dsonar.projectKey=app-health-contract-service-base-v1'
-        }
-      }
-    }
-
+//    stage('SonarQube Analysis') {
+//      steps {
+//        withSonarQubeEnv('sonarqube') {
+//          sh 'mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar -Dsonar.projectKey=app-health-contract-service-base-v1'
+//        }
+//      }
+//    }
+//
 
 
 //    stage('SonarQube Analysis') {
